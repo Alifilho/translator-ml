@@ -8,11 +8,10 @@ This Python-based micro application utilizes Flask to create a server that serve
 
 Before running the application, ensure you have the following prerequisites installed:
 
-- Python (version X.X.X)
+- Python
 - Flask library
 - EasyOCR library
 - Transformers library
-- Alpine.js (for frontend interactivity)
 
 You can install the required libraries using pip:
 
