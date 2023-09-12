@@ -43,9 +43,9 @@ This command will handle the necessary steps to launch the application.
 ## Folder Structure
 
 - /templates: Contains the HTML file for user interaction.
+- /resources: sample files to test
+- /tmp: folders for storing temporary files
 - app.py: The main Python file that handles server creation and backend processing.
-- resources: sample files to test
-- tmp: folders for storing temporary files
 
 ## Additional Notes
 
