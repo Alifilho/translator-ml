@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tradutor</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="h-full">
-    <div class="w-full h-full flex flex-col items-center justify-center">
-        <h2>Translate</h2>
-        <div class="w-full flex">
-            <div class="border border-gray-200 w-1/2 w-36 rounded-md"></div>
-            <div class="border border-gray-200 w-1/2 w-36 ml-3 rounded-md"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tradutor</title>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="h-full">
+        <div class="w-full h-full flex flex-col items-center justify-center" x-data="{}">
+            <h2 class="text-2xl">Translate</h2>
+            <label for="file" class="border border-gray-200 rounded-md p-3 mt-3 bg-gray-50">Send File</label>
+            <input x-on:change="click($event)" type="file" style="display:none" name="file" id="file">
         </div>
-    </div>
-</body>
+    </body>
+    <script>
+        async function click(e) {
+            try {
+                const file = e.target.files[0]
+
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+
+                const data = await response.json()
+                console.log(data);
+            } catch(err) {
+                console.log(err);
+            }
+        }
+    </script>
 </html>
