@@ -15,13 +15,17 @@ Before running the application, ensure you have the following prerequisites inst
 
 You can install the required libraries using pip:
 
-pip install Flask easyocr transformers
+```
+   pip install Flask easyocr transformers
+```
 
 ## Running the Application
 
 To start the application, you can use the provided Makefile with the following command:
 
-make run
+```
+   make run
+```
 
 This command will handle the necessary steps to launch the application.
 
@@ -40,9 +44,11 @@ This command will handle the necessary steps to launch the application.
 
 - /templates: Contains the HTML file for user interaction.
 - app.py: The main Python file that handles server creation and backend processing.
+- resources: sample files to test
+- tmp: folders for storing temporary files
 
 ## Additional Notes
 
 Feel free to customize and expand upon this micro application according to your project's specific requirements. You can also incorporate additional features or optimize the existing codebase for further functionality. Don't forget to document any changes you make for future reference.
 
-If you encounter any issues or have questions, feel free to reach out for assistance. Happy coding!
+If you encounter any issues or have questions, feel free to reach out. Happy coding!
