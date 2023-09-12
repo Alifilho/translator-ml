@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 from transformers import MarianMTModel, MarianTokenizer
-import torch
-import easyocr
+from os.path import join
+from os import getcwd, remove
+from werkzeug.utils import secure_filename
+from torch import no_grad
+from easyocr import Reader
 
 app = Flask(__name__)
 
@@ -13,7 +16,7 @@ def translate(text):
 
   inputs = tokenizer(text, max_length=64, return_tensors="pt", truncation=True)
 
-  with torch.no_grad():
+  with no_grad():
       outputs = model.generate(**inputs)
 
   translated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
@@ -28,17 +31,23 @@ def home():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
-      request.files['file'].save('temp_file.png')
+      temp_dir = join(getcwd(), 'tmp')
 
-      reader = easyocr.Reader(['en'])
+      filename = secure_filename(request.files['file'].filename)
 
-      result = reader.readtext('temp_file.png')
+      request.files['file'].save(join(temp_dir, filename))
+
+      reader = Reader(['en'])
+
+      result = reader.readtext(join(temp_dir, filename))
 
       text = ''
       for detection in result:
           text += f' {detection[1]}'
       
       translated_text = translate(text)
+
+      remove(join(temp_dir, filename))
 
       return jsonify({"message": translated_text})
     except Exception as e:
